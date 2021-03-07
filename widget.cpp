@@ -1,20 +1,81 @@
 #include "widget.h"
 #include "ui_widget.h"
-
+#include "chartdemo.h"
+#include "myqchartbar.h"
+#include <QRandomGenerator>
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
+    this->setWindowTitle(tr("QT Statics Chart Demo"));
 
-#if 1
+    //显示自定义图形
+    showMyPies();
+
+
+    //继承图形使用
+    MyQChartBar *myCharBar = new MyQChartBar;
+    myCharBar->initAx(); //初始化数据
+    QString barTtile =tr("Chart Bar");//设置标题
+    myCharBar->setTitlrText(barTtile);
+
+    // 继承的chart bar 使用
+    ui->vlayout_chart_bar->addWidget(myCharBar->getView());
+
+
+
+    QTimer *timer = new QTimer(this);
+    timer->start(2000);
+    connect(timer,&QTimer::timeout,[=](){
+        myCharBar->refreshData();
+        myCharBar->refreshAx();
+        //必须先清除原来的item
+        ui->vlayout_chart_pies->removeItem(ui->vlayout_chart_pies->itemAt(0));
+        showMyPies();
+
+    });
+
+}
+
+Widget::~Widget()
+{
+    delete ui;
+}
+
+void Widget::showMyPies()
+{
+    QRandomGenerator *rdg = QRandomGenerator::global();
+
+
+    //定义图形用的数据变量
+    QVector<int> intList;
+    intList<< rdg->bounded(10,100)<< rdg->bounded(20,90)<< rdg->bounded(10,80);
+
+    QStringList strList;
+    strList<<"水果"<<"零食"<<"主食";
+
+    double total=0;
+    for(int sum:intList){
+        total+=sum;
+    }
+
     m_chart = new QChart();
-
     QPieSeries *series = new QPieSeries();
-    series->append("水果:30%",10);     //添加标签"水果:30%" 和 百分值30%
-    series->append("零食:20%",50);
-    series->append("主食:50%",100);
+
+    QString pStr;
+    for (int i=0; i<strList.size() ; i++ ) {
+        //注意这里除法类型 如果都是整数返回结果为整数,小数全部为 0 , 所以必须由一个数是浮点数才能返回小数
+         double _percentNum = intList.at(i)/total * 100;
+         //格式化结果为2位小数
+         pStr = pStr.sprintf("%.2f",_percentNum);
+
+        QString _str = QString("%1:%2%").arg(strList.at(i)).arg(pStr);
+        series->append(_str, intList.at(i));
+    }
+
+
 
     series->setLabelsVisible(true);
     series->setUseOpenGL(true);
@@ -46,22 +107,16 @@ Widget::Widget(QWidget *parent)
     QChartView *chartView = new QChartView(m_chart);
     chartView->setRenderHint(QPainter::Antialiasing);
 
-    // 代码创建动态虚拟 QVBoxLayout 然后添加到自定义的 myWidget中
-    QWidget *myv = ui->myWidget;
-    QVBoxLayout *pVLayout = new QVBoxLayout(myv);
-    pVLayout->addWidget(chartView); //将图形添加到动态布局中
+//    chartView->chart()->update();
 
-    //使用UI界面上的 动态虚拟layout
-//     ui->vlayout_chart_pies->addWidget(chartView);
-
-
-    resize(960, 720);
-#endif
+    ui->vlayout_chart_pies->addWidget(chartView); //将图形添加到动态布局中
 
 }
 
-Widget::~Widget()
+
+void Widget::on_pushButton_clicked()
 {
-    delete ui;
-}
+    ChartDemo *cd = new ChartDemo(this);
+    cd->show();
 
+}

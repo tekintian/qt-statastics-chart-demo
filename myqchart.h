@@ -1,6 +1,7 @@
 #ifndef MYQCHART_H
 #define MYQCHART_H
 
+#include <QWidget>
 #include <QChart>
 #include <QChartView>
 #include <QValueAxis>
@@ -9,9 +10,12 @@
 
 QT_CHARTS_USE_NAMESPACE
 
-#define F2	"%.2f"
-#define D	"%d"
-#define G   "%.2g"
+#include <QDebug>
+#define cout qDebug()
+
+//#define F2 "%.2f"
+//#define D "%d"
+//#define G "%.2g"
 
 class MyQChart:public QWidget
 {
@@ -21,27 +25,27 @@ public:
 
     QChartView * getView();
 
-    virtual	void InitAx();			//初始化坐标轴
-    virtual	void InitDate();		//初始化数据
-    virtual	void refreshDate();		//刷新数据
+    virtual	void initAx();			//初始化坐标轴
+    virtual	void initData();		//初始化数据
+    virtual	void refreshData();		//刷新数据
     virtual void refreshAx();		//刷新坐标轴
     void refrshAx(int minX, int minY, int maxX, int maxY);			//刷新坐标轴刻度
 
     void setTitlrText(QString &title);
-    void setAxisX(QString &XTitle, QString &XText);
-    void setAxisY(QString &YTitle, QString &YText);
+    void setAxisX(QString &xTitle, QString &xText);
+    void setAxisY(QString &yTitle, QString &yText);
 
     QChart *m_chart;
     QChartView *m_chartView;
     QValueAxis *m_axisX;
     QValueAxis *m_axisY;
 
-    QString m_Title;
-    QString m_XTitle;
-    QString m_YTitle;
+    QString m_title;
+    QString m_xTitle;
+    QString m_yTitle;
 
-    QString m_XText;
-    QString m_YText;
+    QString m_xText;
+    QString m_yText;
 };
 
 

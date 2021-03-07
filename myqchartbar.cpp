@@ -1,9 +1,5 @@
 #include "myqchartbar.h"
 
-
-#include <QDebug>
-
-
 MyQChartBar::MyQChartBar()
 {
     set0 = new QBarSet("Jane");
@@ -26,7 +22,7 @@ MyQChartBar::~MyQChartBar()
     delete series;
 }
 
-void MyQChartBar::InitDate()
+void MyQChartBar::initData()
 {
     i = 0;
 
@@ -45,11 +41,11 @@ void MyQChartBar::InitDate()
     str << "Jan" << "Fed" << "Mar" << "Apr" << "Jun";
 }
 
-void MyQChartBar::InitAx()
+void MyQChartBar::initAx()
 {
-    InitDate();
+    initData();
     m_chart->addSeries(series);
-    m_chart->setTitle(m_Title);
+    m_chart->setTitle(m_title);
     m_chart->setAnimationOptions(QChart::SeriesAnimations);
 
     QBarCategoryAxis * axisx = new QBarCategoryAxis();
@@ -63,11 +59,11 @@ void MyQChartBar::InitAx()
     m_chartView->setRenderHints(QPainter::Antialiasing);	//抗锯齿
 }
 
-void MyQChartBar::refreshDate()
+void MyQChartBar::refreshData()
 {
     i++;
     if (i >= 10) i = 0;
-    qDebug() << i << "updere !!";
+    cout << QString("reflesh %1 times !!").arg(i);
     //修改数据
     set0->remove(0);
     set0->insert(0, i);
@@ -80,6 +76,6 @@ void MyQChartBar::refreshDate()
 
 void MyQChartBar::refreshAx()
 {
-    refreshDate();
+    refreshData();
     MyQChart::refreshAx();
 }

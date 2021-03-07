@@ -1,7 +1,7 @@
 #ifndef MYQCHARTPIE_H
 #define MYQCHARTPIE_H
 
-#include "myqchart.h"
+#include <myqchart.h>
 #include <QPieSeries>
 #include <QPieSlice>
 
@@ -11,9 +11,9 @@ class MyQChartPie :
 public:
     MyQChartPie();
     virtual ~MyQChartPie();
-    virtual	void InitAx();			//初始化坐标轴
-    virtual	void InitDate();		//初始化数据
-    virtual	void refreshDate();		//刷新数据
+    virtual	void initAx();			//初始化坐标轴
+    virtual	void initData();		//初始化数据
+    virtual	void refreshData();		//刷新数据
     virtual void refreshAx();		//刷新坐标轴;
 private:
     int i;
@@ -24,6 +24,5 @@ private:
 
     QPieSeries *series;
 };
-
 
 #endif // MYQCHARTPIE_H

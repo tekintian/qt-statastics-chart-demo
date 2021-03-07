@@ -1,24 +1,29 @@
 #ifndef MYQCHARTSPLINE_H
 #define MYQCHARTSPLINE_H
 
+#include <myqchart.h>
 #include <QSplineSeries>
-#include "myqchart.h"
 
-class MyQChartSpline :
-    public MyQChart
+class MyQChartSpline : public MyQChart
 {
+    Q_OBJECT
 public:
-    MyQChartSpline();
-    virtual ~MyQChartSpline();
-    virtual	void InitAx();			//初始化坐标轴
-    virtual	void InitDate();		//初始化数据
-    virtual	void refreshDate();		//刷新数据
+    explicit MyQChartSpline(QObject *parent = nullptr);
+    ~MyQChartSpline();
+
+    virtual	void initAx();			//初始化坐标轴
+    virtual	void initData();		//初始化数据
+    virtual	void refreshData();		//刷新数据
     virtual void refreshAx();		//刷新坐标轴
     template <typename A_Val, typename B_Val>void addDate(A_Val valX, B_Val valY);
 private:
     int i;							//test date
     QSplineSeries* series;
+
+signals:
+
 };
+
 
 template <typename A_Val, typename B_Val>
 void MyQChartSpline::addDate(A_Val valX, B_Val valY)

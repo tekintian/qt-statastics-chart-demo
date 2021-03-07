@@ -1,39 +1,35 @@
 #include "myqchartspline.h"
 
-#include <QSplineSeries>
-#include "myqchart.h"
-
-MyQChartSpline::MyQChartSpline()
+MyQChartSpline::MyQChartSpline(QObject *parent)
 {
     series = new QSplineSeries();
 }
-
 
 MyQChartSpline::~MyQChartSpline()
 {
     delete series;
 }
 
-void MyQChartSpline::InitAx()
+void MyQChartSpline::initAx()
 {
-    MyQChart::InitAx();
+    MyQChart::initAx();
     m_chartView->chart()->addSeries(series);
     m_chart->setAxisX(m_axisX, series);
     m_chart->setAxisY(m_axisY, series);
 }
 
-void MyQChartSpline::InitDate()
+void MyQChartSpline::initData()
 {
     i = 0;
 }
 
-void MyQChartSpline::refreshDate()
+void MyQChartSpline::refreshData()
 {
     i++;
 }
 void MyQChartSpline::refreshAx()
 {
-    refreshDate();
+    refreshData();
     addDate<int, float>(i, float(i) * float(i));	//曲线图刷新
     if (i <= 20)
     {

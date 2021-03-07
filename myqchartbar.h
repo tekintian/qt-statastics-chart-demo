@@ -5,6 +5,7 @@
 #include <QBarSeries>
 #include <QBarCategoryAxis>
 #include "myqchart.h"
+
 class MyQChartBar :
     public MyQChart
 {
@@ -12,9 +13,9 @@ public:
     MyQChartBar();
     virtual ~MyQChartBar();
 
-    virtual	void InitAx();			//初始化坐标轴
-    virtual	void InitDate();		//初始化数据
-    virtual	void refreshDate();		//刷新数据
+    virtual	void initAx();			//初始化坐标轴
+    virtual	void initData();		//初始化数据
+    virtual	void refreshData();		//刷新数据
     virtual void refreshAx();		//刷新坐标轴
 
     int i;							//test val;
@@ -29,7 +30,5 @@ private:
 
     QBarSeries * series;
 };
-
-
 
 #endif // MYQCHARTBAR_H

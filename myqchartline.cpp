@@ -11,25 +11,25 @@ MyQChartLine::~MyQChartLine()
     delete series;
 }
 
-void MyQChartLine::InitAx()
+void MyQChartLine::initAx()
 {
-    MyQChart::InitAx();
+    MyQChart::initAx();
     m_chartView->chart()->addSeries(series);
     m_chart->setAxisX(m_axisX, series);
     m_chart->setAxisY(m_axisY, series);
 }
-void MyQChartLine::InitDate()
+void MyQChartLine::initData()
 {
     i = 0;
 }
 
-void MyQChartLine::refreshDate()
+void MyQChartLine::refreshData()
 {
     i++;
 }
 void MyQChartLine::refreshAx()
 {
-    refreshDate();
+    refreshData();
     addDate<int, float>(i, float(i) / 2);	//曲线图刷新
     if (i <= 20)
     {

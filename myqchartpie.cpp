@@ -1,5 +1,6 @@
 #include "myqchartpie.h"
 
+
 MyQChartPie::MyQChartPie()
 {
     series = new QPieSeries();
@@ -11,16 +12,16 @@ MyQChartPie::~MyQChartPie()
     delete series;
 }
 
-void  MyQChartPie::InitAx()
+void  MyQChartPie::initAx()
 {
-    InitDate();
+    initData();
     m_chart->addSeries(series);
-    m_chart->setTitle(m_Title);
+    m_chart->setTitle(m_title);
 
     m_chartView->setRenderHint(QPainter::Antialiasing);
 }
 
-void MyQChartPie::InitDate()
+void MyQChartPie::initData()
 {
     i = 0;
 
@@ -39,7 +40,7 @@ void MyQChartPie::InitDate()
     //m_slice0 = series->slices().at(0);
 }
 
-void MyQChartPie::refreshDate()
+void MyQChartPie::refreshData()
 {
     i++;
     if (i >= 10) i = 0;
@@ -47,6 +48,6 @@ void MyQChartPie::refreshDate()
 }
 void MyQChartPie::refreshAx()
 {
-    refreshDate();
+    refreshData();
     MyQChart::refreshAx();
 }

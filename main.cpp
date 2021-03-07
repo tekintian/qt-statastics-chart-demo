@@ -1,5 +1,5 @@
 #include "widget.h"
-#include "myqchart.h"
+//#include "chartdemo.h"
 
 #include <QApplication>
 
@@ -7,10 +7,11 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-//    Widget w;
-//    w.show();
-    MyQChart cd;
-    cd.show();
+    Widget w;
+    w.show();
+
+//    ChartDemo cd;
+//    cd.show();
 
     return a.exec();
 }

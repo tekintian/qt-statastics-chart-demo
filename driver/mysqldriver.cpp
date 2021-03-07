@@ -10,6 +10,25 @@ MysqlDriver::MysqlDriver(QObject *parent) : QObject(parent)
 {
 
 }
+QSqlDatabase MysqlDriver::getConnect()
+{
+    static QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
+    //数据库连接
+    db.setHostName("localhost");
+    db.setUserName("qt");
+    db.setPassword("qt888");
+    db.setDatabaseName("qt_car");
+    db.setPort(3306);
+
+    if(db.open()){
+        qDebug()<<"连接成功!";
+    }else{
+        qDebug()<<"连接失败:"<< db.lastError().text();
+    }
+
+    //数据库连接 end
+    return db;
+}
 
 //执行SQL
 QSqlQuery MysqlDriver::execSql(QString sql)
@@ -85,22 +104,4 @@ QList<QMap<QString, QVariant>> MysqlDriver::getList(QString tableName, QString f
     return list;
 }
 
-QSqlDatabase MysqlDriver::getConnect()
-{
-    static QSqlDatabase db = QSqlDatabase::addDatabase("QMYSQL");
-    //数据库连接
-    db.setHostName("localhost");
-    db.setUserName("qt");
-    db.setPassword("qt888");
-    db.setDatabaseName("qt_car");
-    db.setPort(3306);
 
-    if(db.open()){
-        qDebug()<<"连接成功!";
-    }else{
-        qDebug()<<"连接失败:"<< db.lastError().text();
-    }
-
-    //数据库连接 end
-    return db;
-}
