@@ -2,6 +2,8 @@
 #include "ui_chartdemo.h"
 #include <QDateTime>
 
+#include <QRandomGenerator>
+
 ChartDemo::ChartDemo(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ChartDemo)
@@ -25,6 +27,7 @@ ChartDemo::ChartDemo(QWidget *parent) :
     m_myChartSpline->initAx();
 
     startTimer(1000);
+    timeoutHandlerSlots();//默认初始化
 
 
 }
@@ -118,3 +121,22 @@ void ChartDemo::timeoutHandlerSlots()
     ui->label_time->setText(QString("<h1 align=\"center\">当前时间:<span style=\" font-size:18pt; color:#405cff; front-weight:bold;\">%1</span></h1>").arg(curTimeStr));
 
 }
+
+//生成随机数据
+QMap<QString, QList<qreal> > ChartDemo::generateRandBarMapData()
+{
+
+    //随机数生成器
+    QRandomGenerator *rdg=QRandomGenerator::global();
+
+    QMap<QString, QList<qreal>> barMap;
+    QList<qreal> numList1,numList2,numList3,numList4,numList5;
+
+    barMap["Tekin"] = numList1<< rdg->bounded(60,90) << rdg->bounded(30,100) << rdg->bounded(10,90) << rdg->bounded(10,90) << rdg->bounded(10,90)<< rdg->bounded(60,90);
+    barMap["Andy"] = numList2 << rdg->bounded(60,90) << rdg->bounded(60,90) << rdg->bounded(10,90) << rdg->bounded(10,90) << rdg->bounded(10,90)<< rdg->bounded(20,90);
+    barMap["Alex"] = numList3<< rdg->bounded(60,90) << rdg->bounded(60,90) << rdg->bounded(10,90) << rdg->bounded(10,90)<< rdg->bounded(10,90)<< rdg->bounded(30,90);
+    barMap["Jone"] = numList4<< rdg->bounded(60,90) << rdg->bounded(60,90) << rdg->bounded(10,90) << rdg->bounded(10,90)<< rdg->bounded(10,90)<< rdg->bounded(5,90);
+    barMap["jack"] = numList5<< rdg->bounded(60,90) << rdg->bounded(60,90) << rdg->bounded(10,90) << rdg->bounded(10,90)<< rdg->bounded(10,90)<< rdg->bounded(1,90);
+    return barMap;
+}
+
