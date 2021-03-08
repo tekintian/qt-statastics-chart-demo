@@ -6,6 +6,10 @@ qt statistics chart demo, include  pies chart , line chart, spline chart  and ba
 
 
 
+Dynamic   update the data and chart  
+
+
+
 ![](./docs/widget.png)
 
 
