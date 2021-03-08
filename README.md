@@ -10,6 +10,10 @@ Dynamic   update the data and chart
 
 
 
+Base on  latest qt version ,  QT 5.15.2
+
+
+
 ![](./docs/widget.png)
 
 
