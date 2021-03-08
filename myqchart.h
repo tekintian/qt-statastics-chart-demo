@@ -11,11 +11,12 @@
 QT_CHARTS_USE_NAMESPACE
 
 #include <QDebug>
+//定义调试宏 cout
 #define cout qDebug()
-
-//#define F2 "%.2f"
-//#define D "%d"
-//#define G "%.2g"
+//定义变量宏
+#define F2 "%.2f"
+#define D "%d"
+#define G "%.2g"
 
 class MyQChart:public QWidget
 {
@@ -35,6 +36,9 @@ public:
     void setAxisX(QString &xTitle, QString &xText);
     void setAxisY(QString &yTitle, QString &yText);
 
+    void setAxisXRange(qreal min, qreal max);
+    void setAxisYRange(qreal min, qreal max);
+
     QChart *m_chart;
     QChartView *m_chartView;
     QValueAxis *m_axisX;
@@ -46,6 +50,7 @@ public:
 
     QString m_xText;
     QString m_yText;
+
 };
 
 

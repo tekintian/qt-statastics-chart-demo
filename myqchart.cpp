@@ -80,6 +80,7 @@ void MyQChart::setAxisY(QString& yTitle, QString& yText)
     m_yText = yText;
 }
 
+
 QChartView * MyQChart::getView()
 {
     return m_chartView;
@@ -90,4 +91,16 @@ void MyQChart::refrshAx(int minX, int minY, int maxX, int maxY)
     m_axisX->setRange(minX, maxX);
     m_axisY->setRange(minY, maxY);
 }
+void MyQChart::setAxisXRange(qreal min, qreal max)
+{
+    m_axisX->setMin(min);
+    m_axisX->setMax(max);
 
+}
+
+void MyQChart::setAxisYRange(qreal min, qreal max)
+{
+    cout<<"set y";
+//    m_axisY->setMin(min);
+//    m_axisY->setMax(max);
+}

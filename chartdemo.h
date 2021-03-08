@@ -39,6 +39,7 @@ public:
 public slots:
     void timeoutHandlerSlots();
 
+    QMap<QString, QList<qreal>> generateRandBarMapData();
 
 private:
     MyQChartPie *m_myChartPie;
