@@ -21,14 +21,17 @@ public:
     ~Widget();
 
     void showMyPies();
-
+    //生成随机数据
+    QMap<QString, QList<qreal>> generateRandBarMapData();
 
 private slots:
     void on_pushButton_clicked();
 
+
 private:
     //成员属性定义
     QChart *m_chart;
+
 
 
 private:

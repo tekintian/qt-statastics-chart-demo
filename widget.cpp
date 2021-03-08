@@ -1,7 +1,7 @@
 #include "widget.h"
 #include "ui_widget.h"
 #include "chartdemo.h"
-#include "myqchartbar.h"
+#include "barchart.h"
 #include <QRandomGenerator>
 
 Widget::Widget(QWidget *parent)
@@ -14,27 +14,44 @@ Widget::Widget(QWidget *parent)
     //显示自定义图形
     showMyPies();
 
+    cout<<D;
 
     //继承图形使用
-    MyQChartBar *myCharBar = new MyQChartBar;
-    myCharBar->initAx(); //初始化数据
+    BarChart *myChartBar = new BarChart;
+
     QString barTtile =tr("Chart Bar");//设置标题
-    myCharBar->setTitlrText(barTtile);
+    myChartBar->setTitlrText(barTtile);
+    QString xstr,ystr;
+    xstr="Hello"; ystr="World";
+
+    //准备数据
+    QStringList labelList;
+    labelList<<"Jon" << "Fed" << "Mar" << "Apr" << "Jun"<< "Sep"; // 统计月份 需要统计几个月就有几个数字, 需要和下面的numListx 数据条数对应
+
+
+    QMap<QString, QList<qreal>> barMap;
+    QList<qreal> numList1,numList2,numList3,numList4,numList5;
+
+    barMap=generateRandBarMapData();
+
+    // barMap["xxx"] 这里的xxx 即为需要在图上面显示的名称 , 后面的值是这个名称对应的数据 条数需要和labelList的大小一致
+
+    myChartBar->setData(barMap,labelList);
+
 
     // 继承的chart bar 使用
-    ui->vlayout_chart_bar->addWidget(myCharBar->getView());
+    ui->vlayout_chart_bar->addWidget(myChartBar->getView());
 
 
 
     QTimer *timer = new QTimer(this);
     timer->start(2000);
     connect(timer,&QTimer::timeout,[=](){
-        myCharBar->refreshData();
-        myCharBar->refreshAx();
+
+        myChartBar->setData(generateRandBarMapData(),labelList);
         //必须先清除原来的item
         ui->vlayout_chart_pies->removeItem(ui->vlayout_chart_pies->itemAt(0));
         showMyPies();
-
     });
 
 }
@@ -46,8 +63,9 @@ Widget::~Widget()
 
 void Widget::showMyPies()
 {
-    QRandomGenerator *rdg = QRandomGenerator::global();
 
+    //随机数生成器
+    QRandomGenerator *rdg=QRandomGenerator::global();
 
     //定义图形用的数据变量
     QVector<int> intList;
@@ -111,6 +129,24 @@ void Widget::showMyPies()
 
     ui->vlayout_chart_pies->addWidget(chartView); //将图形添加到动态布局中
 
+}
+
+//生成随机数据
+QMap<QString, QList<qreal> > Widget::generateRandBarMapData()
+{
+
+    //随机数生成器
+    QRandomGenerator *rdg=QRandomGenerator::global();
+
+    QMap<QString, QList<qreal>> barMap;
+    QList<qreal> numList1,numList2,numList3,numList4,numList5;
+
+    barMap["Tekin"] = numList1<< rdg->bounded(60,90) << rdg->bounded(30,100) << rdg->bounded(10,90) << rdg->bounded(10,90) << rdg->bounded(10,90)<< rdg->bounded(60,90);
+    barMap["Andy"] = numList2 << rdg->bounded(60,90) << rdg->bounded(60,90) << rdg->bounded(10,90) << rdg->bounded(10,90) << rdg->bounded(10,90)<< rdg->bounded(20,90);
+    barMap["Alex"] = numList3<< rdg->bounded(60,90) << rdg->bounded(60,90) << rdg->bounded(10,90) << rdg->bounded(10,90)<< rdg->bounded(10,90)<< rdg->bounded(30,90);
+    barMap["Jone"] = numList4<< rdg->bounded(60,90) << rdg->bounded(60,90) << rdg->bounded(10,90) << rdg->bounded(10,90)<< rdg->bounded(10,90)<< rdg->bounded(5,90);
+    barMap["jack"] = numList5<< rdg->bounded(60,90) << rdg->bounded(60,90) << rdg->bounded(10,90) << rdg->bounded(10,90)<< rdg->bounded(10,90)<< rdg->bounded(1,90);
+    return barMap;
 }
 
 
